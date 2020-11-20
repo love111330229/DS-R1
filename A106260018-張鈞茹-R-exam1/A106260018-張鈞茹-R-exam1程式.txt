@@ -1,0 +1,53 @@
+109-1 資料科學應用 exam1
+班級:經濟四乙
+學號:A106260018
+姓名:張鈞茹
+
+#1. 小吳老師於某系教授 A, B 兩班學生微積分，學期各次成績紀錄於 Calculus-score-A.csv 及Calculus-score-B.xls 兩檔案。
+#檔案中紀錄 4 次小考成績、期中期末成績、助教 (TA) 成績，各次考試之配分比例及學期點名出席次數。
+#(a) 讀入兩資料檔，並印出兩資料的前、後各 5 筆紀錄。
+
+data1 <- read.csv("Calculus-score-A.csv")
+head(data1,5)
+tail(data1,5)
+
+data2 <- read.xlsx("Calculus-score-B.xls",1,startRow=3,encoding="UTF-8")
+head(data2,5)
+tail(data2,5)
+
+#(b) 將上述之兩資料合併為㇐個資料框 data.frame (命名為 score)，使得各欄位名稱如下所示並增加㇐欄位註明班別 (Class)。
+#(提示: rbind)
+#score[38:43]
+#     No       ID   Name Gender Quiz1 Quiz2 Quiz3 Quiz4     TA Midterm Final ATT Class
+# 38 38 404550431 沈泓霏     女    15    25    53    67   93.3      29    42   9     A
+# 39 39 404550442 許安霏     女    53    60    80    72  100.0      61    62   9     A
+# 40 40 404550453 李政宜     男    80   100    85   100  100.0      95   100   3     A
+# 41  1 404550465 史文羽     男    60    81   100    97  100.0      90    83   6     B
+# 42  2 404685071 鄭樺妤     男    80   100   100    92  100.0      92    97   2     B
+# 43  3 404685084 張敬安     男    10    40    62    93  100.0      65    84   9     B
+a <- head(data1,40)
+b <- head(data2,55)
+c <- rbind(a,b)
+print(c) 
+
+#(c) 依各項考試 (小考、期中期末) 配分算出每位同學之學期成績 (缺考以零分計)。
+#其中「出席成績」為額外加分，出席幾次，則總分加幾分。總分以不超過 100 為原則。請列出全班學期成績。
+
+#(d) 列出學期成績在 55(含)∼60 分 (不含) 之間的所有同學之全部各欄位紀錄。
+
+#(e) A、B 兩班總成績平均各為多少? 男、女生學期成績平均各為多少?
+
+#(f) A 班學期成績不及格比例為多少? B 班男同學學期成績不及格比例為多少?
+
+#(g) 分別印出男、女生學期成績前 5 名之「班別、學號、姓名、學期成績、名次」等欄位紀錄。
+#(男、女生各按照名次依序列出)
+
+
+#2. 下列 Letters.code 為㇐個包含「A」∼「E」的向量。
+set.seed(123456)
+Letters.code <- sample(LETTERS[1:5], 20, replace=T)
+#(a) 將 Letters.code 中的「A」與「E」編碼為 1，「C」編碼為 2，「B」與「D」編碼為 3。
+Letters.code
+gsub(Letters.code) <- c("1", "3", "2","3","1")
+#(b) 將上小題所得到的數字編碼 Numbers.code，與 Letters.code 組成㇐個資料框 (data.frame),
+#使其具有 Letters.code 和 Numbers.code 兩欄位。
