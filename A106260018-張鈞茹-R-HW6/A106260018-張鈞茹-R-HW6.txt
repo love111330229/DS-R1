@@ -1,0 +1,134 @@
+109-1 資料科學應用 HW6
+班級:經濟四乙
+學號:A106260018
+姓名:張鈞茹
+
+> #2.9
+> #R 物件 number 是㇐個具有 1000 個正整數的數字向量，其數字範圍為 0 到 100，
+> #而數字於向量中的位置記為 1∼1000。
+> set.seed(12345)
+> number <- sample(0:100, 1000, replace=T)
+> #(a) 使用 for，找出 number 數字向量中，第 100 個偶數的出現的位置，其數字為何。
+> set.seed(12345)
+> number <- sample(0:100, 1000, replace=T)
+> n.for <- function(x){
++   a <- 0 #計算 100 個
++   for(i in number){
++     if(i%%2 == 0){
++       a <- a+1
++       }
++     if(a > x)break
++     ans <-i
++     }
++   cat(ans)
++   }
+> n.for(100)
+62> #(b) 使用 repeat，找出 number 數字向量中，第 100 個偶數的出現的位置，其數字為何。
+> n.re <- function(x){
++   number.2 <- number[which(number%%2==0)]
++   a<- 0
++   repeat{
++     a <- a+1
++     i <- number.2[a]
++     if(a==x)break
++       }
++   cat(i)
++   }
+> n.re(100)
+62> #(c) 使用 while，找出 number 數字向量中，第 100 個偶數的出現的位置，其數字為何。
+> n.wh <- function(x){
++   number.2 <- number[which(number%%2==0)]
++   a<- 0
++   while(a<x){
++     a<-a+1
++     i <- number.2[a]
++     }
++   cat(i)
++   }
+> n.wh(100)
+62> #2.53
+> #R 內建資料集 mtcars 是㇐汽車趨勢道路測試資料 (Motor Trend Car Road Tests)(1974 年), 
+> #資料包括 32 款汽車在油耗及 10 個汽車設計和性能測試相關的數據。
+> #11個變數依序為: 
+> #1  mpg (Miles/(US) gallon, 公哩/加侖),
+> #2  cyl (Number of cylinders, 氣缸數),
+> #3  disp (Displacement, 容量), 
+> #4  hp (Gross horsepower, 總馬力),
+> #5  drat (Rear axle ratio, 後輪軸比), 
+> #6  wt (Weight, 重量),
+> #7  qsec (1/4 mile time, ¼ 哩的時間),
+> #8  vs (Engine,發動機類型),
+> #9  am (Transmission, 變速器),
+> #10 gear (Number of forward gears, 前進檔位數),
+> #11 carb (Number of carburetors, 化油器數)。
+> #請計算五個變數: disp, hp, drat, wt, qsec 
+> #在各個不同氣缸數之下的平均數。(提示: 限使用㇐次 apply 及 tapply)。
+> data("mtcars")
+> aggregate(cbind(disp, hp, drat, wt,qsec)~cyl,mtcars,mean)
+  cyl     disp        hp     drat       wt     qsec
+1   4 105.1364  82.63636 4.070909 2.285727 19.13727
+2   6 183.3143 122.28571 3.585714 3.117143 17.97714
+3   8 353.1000 209.21429 3.229286 3.999214 16.77214
+> #2.62
+> #依下列步驟，完成㇐「剪刀石頭布遊戲」的 R 程式。
+> #(a) (10 分) 由電腦隨機產生㇐個拳頭 (剪刀、石頭、布)，並印出。(提示: sample)
+> x1 <- sample(c("剪刀","石頭","布"),size=1)
+> cat(x1)
+石頭> #(b) (10 分) 由營幕輸入玩家要出的拳頭，使得執行的畫面如下。(提示: switch)
+> #請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了): a玩家出: 剪刀
+> x <- readline(prompt="請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):")
+請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):a
+> if(x =='a'){
++   cat('玩家出:剪刀')
++   }else if(x =='b'){
++     cat('玩家出:石頭')
++     }else if(x=='c'){
++       cat('玩家出:布')
++       }else{
++         cat('玩家選擇不玩了')
++         }
+玩家選擇不玩了> #(c) (50 分) 寫㇐「剪刀石頭布遊戲」的 R 程式 (命名 game)，使得程式執行的畫面如下。
+> #(提示: (1) 電腦出拳是隨機抽樣。(2) repeat, break)
+> game <- function(x){
++   repeat{
++     x1 <- sample(c("剪刀","石頭","布"),size=1)
++     x2 <- readline(prompt="請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):")
++       if(x2 == 'a'){
++         if(x1 == '剪刀'){
++           cat("電腦出[ 剪刀 ], 你出[ 剪刀 ], 你[ 平手 ]了!")
++           }else if(x1 == '石頭'){
++             cat("電腦出[ 石頭 ], 你出[ 剪刀 ], 你[ 輸 ]了!")
++             }else{
++               cat("電腦出[ 布 ], 你出[ 剪刀 ], 你[ 贏 ]了!")
++               }
++         }else if(x2 == 'b'){
++           if(x1 == '石頭'){
++             cat("電腦出[ 石頭 ], 你出[ 石頭 ], 你[ 平手 ]了!")
++             }else if(x1 == '布'){
++               cat("電腦出[ 布 ], 你出[ 石頭 ], 你[ 輸 ]了!")
++               }else{
++                 cat("電腦出[ 剪刀 ], 你出[ 石頭 ], 你[ 贏 ]了!")
++                 }
++           }else if(x2 == 'c'){
++             if(x1 == '布'){
++               cat("電腦出[ 布 ], 你出[ 布 ], 你[ 平手 ]了!")
++               }else if(x1 == '剪刀'){
++                 cat("電腦出[ 剪刀 ], 你出[ 布 ], 你[ 輸 ]了!")
++                 }else{
++                   cat("電腦出[ 石頭 ], 你出[ 布 ], 你[ 贏 ]了!")
++                   }
++             }else{
++               cat("謝謝再會!")
++               }
++     if(x2 == 'd')break
++     }
++   }
+> game()
+請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):a
+電腦出[ 石頭 ], 你出[ 剪刀 ], 你[ 輸 ]了!
+請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):b
+電腦出[ 剪刀 ], 你出[ 石頭 ], 你[ 贏 ]了!
+請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):c
+電腦出[ 石頭 ], 你出[ 布 ], 你[ 贏 ]了!
+請輸入你要出的拳頭(a: 剪刀, b: 石頭, c: 布, d: 不玩了):d
+謝謝再會!
